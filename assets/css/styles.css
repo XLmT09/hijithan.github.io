@@ -1,0 +1,34 @@
+body {
+  margin: 0;
+  height: 400vh; /* Simulate a long scrollable page */
+  overflow-y: scroll;
+  background: black;
+  color: white; /* Ensure text is visible */
+  font-family: Arial, sans-serif;
+}
+
+canvas {
+  display: block;
+  position: fixed; /* Fixed position makes it overlay the background */
+  top: 0;
+  left: 0;
+  z-index: -1; /* Ensure the canvas is behind all HTML content */
+  width: 100%; /* Make the canvas take full width */
+  height: 100%; /* Make the canvas take full height */
+}
+
+/* Style for each section */
+section {
+  height: 100vh; /* Set height to 100% of the viewport */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  color: white;
+  text-align: center;
+}
+
+/* Smooth scroll for the whole page */
+html {
+  scroll-behavior: smooth;
+}

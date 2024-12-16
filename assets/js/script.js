@@ -1,35 +1,60 @@
-// JavaScript to randomly generate stars
-const starField = document.querySelector('.starfield');
-const numberOfStars = 1000;
+const canvas = document.getElementById("starCanvas");
+const ctx = canvas.getContext("2d");
 
-for (let i = 0; i < numberOfStars; i++) {
-    const star = document.createElement('div');
-    star.classList.add('star');
-    // Random horizontal position
-    const x = Math.random() * 100;
-    // Random vertical position 
-    const y = Math.random() * 100;
-    // Random star size
-    const size = Math.random() * 2 + 1;
-    // Random twinkle delay
-    const animationDelay = Math.random() * 3;
+// Set canvas size to match the viewport
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-    star.style.left = `${x}vw`;
-    star.style.top = `${y}vh`;
-    star.style.width = `${size}px`;
-    star.style.height = `${size}px`;
-    star.style.animationDelay = `${animationDelay}s`;
+const stars = [];
+const numStars = 3000;
 
-    starField.appendChild(star);
+// Create stars with random positions and sizes
+for (let i = 0; i < numStars; i++) {
+  stars.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    size: Math.random() * 2, // Random size between 0 and 2
+    speed: Math.random() * 0.5 + 0.1 // Random speed
+  });
 }
 
- // Parallax effect on scroll
- window.addEventListener('scroll', () => {
-    const scrollPosition = window.scrollY;
-    document.querySelectorAll('.star').forEach((star, index) => {
-      // Adjust star positions based on the scroll position
-      // Different speeds for different layers
-      const speed = (index % 5) + 1;
-      star.style.transform = `translateY(${-scrollPosition / speed}px)`;
-    });
-  });
+// Draw the stars
+function drawStars() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+
+  for (const star of stars) {
+    ctx.beginPath();
+    ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+    ctx.fillStyle = "white";
+    ctx.fill();
+  }
+}
+
+// Animate the stars on scroll
+let scrollPosition = 0;
+window.addEventListener("scroll", () => {
+  const scrollTop = window.scrollY;
+  const delta = scrollTop - scrollPosition;
+  scrollPosition = scrollTop;
+
+  // Move stars vertically based on scroll
+  for (const star of stars) {
+    star.y += delta * star.speed;
+
+    // Wrap stars around when they go off the canvas
+    if (star.y > canvas.height) star.y = 0;
+    else if (star.y < 0) star.y = canvas.height;
+  }
+
+  drawStars();
+});
+
+// Initial draw
+drawStars();
+
+// Adjust canvas size on window resize
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  drawStars();
+});

@@ -1,14 +1,18 @@
 // JavaScript to randomly generate stars
 const starField = document.querySelector('.starfield');
-const numberOfStars = 150;
+const numberOfStars = 1000;
 
 for (let i = 0; i < numberOfStars; i++) {
     const star = document.createElement('div');
     star.classList.add('star');
-    const x = Math.random() * 100; // Random horizontal position
-    const y = Math.random() * 100; // Random vertical position
-    const size = Math.random() * 2 + 1; // Random star size
-    const animationDelay = Math.random() * 3; // Random twinkle delay
+    // Random horizontal position
+    const x = Math.random() * 100;
+    // Random vertical position 
+    const y = Math.random() * 100;
+    // Random star size
+    const size = Math.random() * 2 + 1;
+    // Random twinkle delay
+    const animationDelay = Math.random() * 3;
 
     star.style.left = `${x}vw`;
     star.style.top = `${y}vh`;
@@ -18,3 +22,14 @@ for (let i = 0; i < numberOfStars; i++) {
 
     starField.appendChild(star);
 }
+
+ // Parallax effect on scroll
+ window.addEventListener('scroll', () => {
+    const scrollPosition = window.scrollY;
+    document.querySelectorAll('.star').forEach((star, index) => {
+      // Adjust star positions based on the scroll position
+      // Different speeds for different layers
+      const speed = (index % 5) + 1;
+      star.style.transform = `translateY(${-scrollPosition / speed}px)`;
+    });
+  });

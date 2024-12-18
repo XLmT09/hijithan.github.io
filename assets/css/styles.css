@@ -1,10 +1,23 @@
 body {
-  margin: 0;
-  height: 400vh; /* Simulate a long scrollable page */
+  height: 500vh; /* Simulate a long scrollable page */
   overflow-y: scroll;
   background: black;
   color: white; /* Ensure text is visible */
   font-family: Arial, sans-serif;
+}
+
+p {
+  color: #31f827;
+  font-size: 1em;
+}
+
+h1 {
+  color: #C0C0C0;
+}
+
+/* Smooth scroll for the whole page */
+html {
+  scroll-behavior: smooth;
 }
 
 canvas {
@@ -25,10 +38,24 @@ section {
   align-items: center;
   font-family: Arial, sans-serif;
   color: white;
-  text-align: center;
 }
 
-/* Smooth scroll for the whole page */
-html {
-  scroll-behavior: smooth;
+/* Small screens: Up to 767px */
+@media (max-width: 767px) {
+  #section1 h1 {
+    font-size: 3em;
+    margin: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  #section1 h1 {
+    font-size: 5em;
+    margin: 0;
+    width: 10%;
+  }
+  
+  #section1 .box1 {
+    width: 70%;
+  }
 }

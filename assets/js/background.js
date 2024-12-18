@@ -1,27 +1,40 @@
+import { createEarthGroup, getPlanet } from './addPlanet.js';
+import { createStars } from './starfield.js';
+
+const w = window.innerWidth;
+const h = window.innerHeight;
+const fov = 75;
+const aspect = w / h;
+const near = 0.1;
+const far = 1000;
+
 // Set up scene, camera, and renderer
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// Create stars
-const starGeometry = new THREE.BufferGeometry();
-const starMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 1.5 });
-const starVertices = [];
-for (let i = 0; i < 3000; i++) {
-    starVertices.push(
-    (Math.random() - 0.5) * 1000,
-    (Math.random() - 0.5) * 1000,
-    (Math.random() - 0.5) * 1000
-    );
-}
-starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
-const stars = new THREE.Points(starGeometry, starMaterial);
-scene.add(stars);
-
 // Set initial camera position
 camera.position.z = 5;
+
+// Create stars
+const stars = createStars();
+scene.add(stars);
+
+const mars = getPlanet({size: 1, img: "mars.jpg", distance: [-2, 1, 35], glow: 0xC97C5D});
+scene.add(mars);
+
+const jupiter = getPlanet({size: 10, img: "jupiter.jpg", distance: [20, 3, 40], glow: 0xD1B27C});
+scene.add(jupiter);
+
+const {earthGroup,  earthMesh, lightsMesh, cloudsMesh, glowMesh} = createEarthGroup();
+scene.add(earthGroup);
+
+const sunLight = new THREE.DirectionalLight(0xffffff, 1.0);
+sunLight.position.set(-2, 0.5, 1.5);
+sunLight.castShadow = false;
+scene.add(sunLight);
 
 // Function to update camera based on scroll position
 function handleScroll() {
@@ -36,8 +49,7 @@ function handleScroll() {
 
     // Adjust multiplier for the zoom effect
     camera.position.z = 5 + scrollFraction * 100;
-    // Move camera up/down slightly with scroll
-    camera.position.y = scrollFraction * 50;  
+    console.log(camera.position);
 }
 
 // Listen for the scroll event
@@ -48,9 +60,16 @@ function animate() {
     requestAnimationFrame(animate);
 
     // Slight rotation of stars for added effect
-    stars.rotation.x += 0.00008;
-    stars.rotation.y += 0.00008;
+    stars.rotation.x += 0.000005;
+    stars.rotation.y += 0.000005;
 
+    earthMesh.rotation.y += 0.0008;
+    lightsMesh.rotation.y += 0.0008;
+    glowMesh.rotation.y += 0.0008;
+    cloudsMesh.rotation.y += 0.00083;
+
+    mars.rotation.y += 0.0008;
+    jupiter.rotation.y += 0.0008;
     renderer.render(scene, camera);
 }
 animate();

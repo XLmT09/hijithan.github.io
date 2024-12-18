@@ -31,7 +31,7 @@ scene.add(jupiter);
 const saturn = getPlanet({size: 5, img: "saturn.jpg", distance: [-15, 4, 85], glow: 0xD1B27C});
 scene.add(saturn);
 
-const ring = getRing({img: "ring.png", distance: [-15, 4, 85]})
+const ring = getRing({img: "rings2.jpg", distance: [-15, 4, 85]})
 scene.add(ring);
 
 const {earthGroup,  earthMesh, lightsMesh, cloudsMesh, glowMesh} = createEarthGroup();
@@ -64,8 +64,8 @@ function animate() {
     requestAnimationFrame(animate);
 
     // Slight rotation of stars for added effect
-    stars.rotation.x += 0.000005;
-    stars.rotation.y += 0.000005;
+    stars.rotation.x += 0.00003;
+    stars.rotation.y += 0.00003;
 
     earthMesh.rotation.y += 0.0008;
     lightsMesh.rotation.y += 0.0008;

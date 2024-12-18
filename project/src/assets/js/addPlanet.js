@@ -1,12 +1,12 @@
 import { getFresnelMat } from './glow.js';
 
-// Function to create and return the Earth group
+// Function to create and return the Earth
 export function createEarthGroup() {
   const earthGroup = new THREE.Group();
   earthGroup.rotation.z = -20.4 * Math.PI / 180;
 
   // Load the texture for the Earth
-  const texture = new THREE.TextureLoader().load("assets/images/earth.jpg");
+  const texture = new THREE.TextureLoader().load("/images/earth.jpg");
   const geometry = new THREE.IcosahedronGeometry(1, 12);
   const material = new THREE.MeshStandardMaterial({ map: texture });
 
@@ -15,7 +15,7 @@ export function createEarthGroup() {
   earthGroup.position.set(2, 1, 1);
 
   // Load the texture for the Earth light
-  const earthLight = new THREE.TextureLoader().load("assets/images/earth_light.jpg");
+  const earthLight = new THREE.TextureLoader().load("/images/earth_light.jpg");
   const lightsMat = new THREE.MeshBasicMaterial({
       map: earthLight,
       blending: THREE.AdditiveBlending,
@@ -24,7 +24,7 @@ export function createEarthGroup() {
   earthGroup.add(lightsMesh);
 
   // Load the texture for the Earth clouds
-  const earthCloudTexture = new THREE.TextureLoader().load("assets/images/earth_clouds.jpg");
+  const earthCloudTexture = new THREE.TextureLoader().load("/images/earth_clouds.jpg");
   const cloudsMat = new THREE.MeshStandardMaterial({
       map: earthCloudTexture,
       transparent: true,
@@ -41,7 +41,7 @@ export function createEarthGroup() {
   glowMesh.scale.setScalar(1.01);
   earthGroup.add(glowMesh);
 
-  return { earthGroup, earthMesh, lightsMesh, cloudsMesh, glowMesh};  // Return the earthGroup
+  return { earthGroup, earthMesh, lightsMesh, cloudsMesh, glowMesh};
 }
 
 const texLoader = new THREE.TextureLoader();
@@ -51,7 +51,7 @@ export function getPlanet({img = '', size = 1, distance = [], glow}) {
 
   planetGroup.position.set(...distance);
 
-  const map = texLoader.load(`assets/images/${img}`);
+  const map = texLoader.load(`/images/${img}`);
   const planetMat = new THREE.MeshStandardMaterial({
     map,
   });
@@ -70,7 +70,7 @@ export function getPlanet({img = '', size = 1, distance = [], glow}) {
 }
 
 export function getRing({img = '', distance = []}) {
-  const ringTexture = texLoader.load(`assets/images/${img}`);
+  const ringTexture = texLoader.load(`/images/${img}`);
 
   const ringGeometry = new THREE.RingGeometry(8, 12, 128);
 

@@ -18,7 +18,7 @@ document.body.appendChild(renderer.domElement);
 // Set initial camera position
 camera.position.z = 5;
 
-// Create stars
+// Creating all the objects and appending to the scene 
 const stars = createStars();
 scene.add(stars);
 

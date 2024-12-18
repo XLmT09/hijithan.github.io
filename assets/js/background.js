@@ -1,4 +1,4 @@
-import { createEarthGroup, getPlanet } from './addPlanet.js';
+import { createEarthGroup, getPlanet, getRing } from './addPlanet.js';
 import { createStars } from './starfield.js';
 
 const w = window.innerWidth;
@@ -22,11 +22,17 @@ camera.position.z = 5;
 const stars = createStars();
 scene.add(stars);
 
-const mars = getPlanet({size: 1, img: "mars.jpg", distance: [-2, 1, 35], glow: 0xC97C5D});
+const mars = getPlanet({size: 0.5, img: "mars.jpg", distance: [-2, 1, 25], glow: 0xC97C5D});
 scene.add(mars);
 
-const jupiter = getPlanet({size: 10, img: "jupiter.jpg", distance: [20, 3, 40], glow: 0xD1B27C});
+const jupiter = getPlanet({size: 11, img: "jupiter.jpg", distance: [20, 3, 40], glow: 0xD1B27C});
 scene.add(jupiter);
+
+const saturn = getPlanet({size: 5, img: "saturn.jpg", distance: [-15, 4, 85], glow: 0xD1B27C});
+scene.add(saturn);
+
+const ring = getRing({img: "ring.png", distance: [-15, 4, 85]})
+scene.add(ring);
 
 const {earthGroup,  earthMesh, lightsMesh, cloudsMesh, glowMesh} = createEarthGroup();
 scene.add(earthGroup);
@@ -44,8 +50,6 @@ function handleScroll() {
     const maxScroll = document.body.scrollHeight - window.innerHeight;
     // Calculate the scroll fraction (0 to 1)
     const scrollFraction = scrollY / maxScroll; 
-
-    // Move the camera based on scroll
 
     // Adjust multiplier for the zoom effect
     camera.position.z = 5 + scrollFraction * 100;
@@ -69,7 +73,10 @@ function animate() {
     cloudsMesh.rotation.y += 0.00083;
 
     mars.rotation.y += 0.0008;
-    jupiter.rotation.y += 0.0008;
+    jupiter.rotation.y += 0.0004;
+    saturn.rotation.y += 0.0008;
+    ring.rotation.z += 0.0002;
+
     renderer.render(scene, camera);
 }
 animate();

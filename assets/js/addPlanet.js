@@ -68,3 +68,26 @@ export function getPlanet({img = '', size = 1, distance = [], glow}) {
 
   return planetGroup;
 }
+
+export function getRing({img = '', distance = []}) {
+  const ringTexture = texLoader.load(`assets/images/${img}`);
+
+  const ringGeometry = new THREE.RingGeometry(8, 12, 128);
+
+  const ringMaterial = new THREE.MeshBasicMaterial({
+    map: ringTexture,
+    color: 0xffffff,
+    side: THREE.DoubleSide,
+    transparent: true,
+  });
+
+  const ring = new THREE.Mesh(ringGeometry, ringMaterial);
+
+  ring.rotation.x = Math.PI / 2.2; 
+  ring.rotation.z = Math.PI / 4; 
+
+  ring.position.set(...distance);
+
+  return ring;
+}
+

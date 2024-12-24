@@ -1,9 +1,11 @@
 body {
   height: 500vh; /* Simulate a long scrollable page */
-  overflow-y: scroll;
   background: black;
   color: white; /* Ensure text is visible */
-  font-family: Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
+  position: relative;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
 }
 
 p {
@@ -12,10 +14,10 @@ p {
 }
 
 h1 {
-  color: #C0C0C0;
+  color: #ffffff;
+  z-index: 1005;
 }
 
-/* Smooth scroll for the whole page */
 html {
   scroll-behavior: smooth;
 }
@@ -25,37 +27,50 @@ canvas {
   position: fixed; /* Fixed position makes it overlay the background */
   top: 0;
   left: 0;
-  z-index: -1; /* Ensure the canvas is behind all HTML content */
+  z-index: -10; /* Ensure the canvas is behind all HTML content */
   width: 100%; /* Make the canvas take full width */
   height: 100%; /* Make the canvas take full height */
 }
 
-/* Style for each section */
 section {
-  height: 100vh; /* Set height to 100% of the viewport */
+  height: 100vh; /* Full viewport height for each section */
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: Arial, sans-serif;
   color: white;
+  scroll-snap-align: start; /* Snap sections into view when scrolling */
+  position: relative;
+  flex-wrap: wrap;
 }
 
-/* Small screens: Up to 767px */
-@media (max-width: 767px) {
-  #section1 h1 {
-    font-size: 3em;
-    margin: 0;
-  }
+.important-text {
+  font-weight: 900;
+  color: #FF3333;
 }
 
-@media (min-width: 768px) {
-  #section1 h1 {
-    font-size: 5em;
-    margin: 0;
-    width: 10%;
-  }
-  
-  #section1 .box1 {
-    width: 70%;
-  }
+/* Change highlight colour */
+::selection {
+  background-color: rgba(13, 161, 5, 0.9);
+  color: #ffffff; 
+}
+
+/* Change highlight colour for Firefox */
+::-moz-selection { 
+  background-color: rgba(13, 161, 5, 0.9);
+  color: #ffffff;
+}
+
+#backgroundCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  z-index: -1000;
+}
+
+#webgl-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 1; /* Behind other elements but not too low */
+  pointer-events: none; /* Allow clicks to pass through the canvas */
+  z-index: -100;
 }

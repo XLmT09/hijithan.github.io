@@ -1,0 +1,109 @@
+#section3 {
+  box-sizing: border-box; /* Includes padding and border in width/height calculations */
+  max-width: 100%; /* Prevents width overflow */
+  word-wrap: break-word; /* Breaks long words to fit within the div */
+}
+
+#section3 h1 {
+  font-size: clamp(50px, 7.7vw + 1rem, 150px);
+  margin: 0 0 1% 0;
+  padding: 0;
+  white-space: nowrap; /* Prevent wrapping */
+  font-weight: 900;
+}
+
+#section3 h2 {
+  font-size: clamp(5px, 0.8vw + 0.8rem, 30px);
+}
+
+#section3 .section-content {
+  width: 60vw;
+  text-align: center;
+}
+
+#section3 img {
+  width: 95%;
+  margin-bottom: 5%;
+  border: 3px solid #0da105;
+}
+
+#section3 p {
+  font-size: clamp(5px, 0.45vw + 0.5rem, 18px);
+  margin: 0;
+  padding: 0 0 2% 0;
+}
+
+#section3 .box-container {
+  margin-top: 0;
+  padding-top: 0;
+  display: flex;
+  flex-wrap: nowrap; /* Prevent wrapping */
+  justify-content: space-between; /* Add spacing between boxes */
+}
+
+#section3 .box {
+  background: rgba(29, 29, 29, 0.3);
+  border: 3px solid #31f827;
+  border-radius: 10px;
+  padding: 10px;
+  backdrop-filter: blur(10px);
+  flex: 1; /* Equal width for each box */
+  box-sizing: border-box;
+  margin: 5px; /* Adds spacing around the boxes */
+  max-width: 400px;
+  max-height: 500px;
+}
+
+@media (max-width: 900px) {
+  #section3 .box-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap */
+    justify-content: space-between; /* Distribute space evenly */
+  }
+  
+  #section3 .box {
+    flex: 0 0 calc(33.33% - 10px); /* 33.33% width to fit 3 boxes per row */
+    margin: 5px; /* Space between items */
+    box-sizing: border-box; /* Ensure padding and borders are included in width calculations */
+  }
+
+  #section3 .section-content {
+    width: 100vw;
+  }
+}
+
+@media (max-width: 400px) {
+  #section3 .box-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap */
+    justify-content: space-between; /* Distribute space evenly */
+  }
+
+#section3 .box-container {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap */
+  justify-content: space-between; /* Distribute space evenly */
+}
+
+#section3 .box {
+  flex: 0 0 calc(50% - 10px); /* 50% width for two boxes per row */
+  margin: 5px; /* Adds spacing between the boxes */
+  box-sizing: border-box; /* Ensures padding and borders are included in the width */
+}
+
+#section3 .box {
+    flex: 0 0 calc(50% - 10px); /* 33.33% width to fit 3 boxes per row */
+    margin: 5px; /* Space between items */
+    box-sizing: border-box; /* Ensure padding and borders are included in width calculations */
+  }
+}
+
+#section3 .box:hover {
+  cursor: pointer;
+  background-color: #0da105;
+  transition: background-color 0.8s;
+}
+
+#section3 .box:hover p {
+  color: white;
+}
